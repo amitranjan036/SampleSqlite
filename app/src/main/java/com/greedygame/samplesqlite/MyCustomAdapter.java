@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
@@ -19,10 +20,12 @@ import java.util.ArrayList;
 public class MyCustomAdapter extends BaseAdapter implements ListAdapter{
     private ArrayList<String> list = new ArrayList<String>();
     private Context context;
+    DatabaseHandler myDb;
 
 
 
-    public MyCustomAdapter(ArrayList<String> list, Context context) {
+    public MyCustomAdapter(ArrayList<String> list, Context context)
+    {
         this.list = list;
         this.context = context;
     }
@@ -39,8 +42,15 @@ public class MyCustomAdapter extends BaseAdapter implements ListAdapter{
 
     @Override
     public long getItemId(int pos) {
-        return list.get(pos).;
+        return pos;
         //just return 0 if your list items do not have an Id variable.
+    }
+
+
+    public addItems(ArrayList<String> list,Context context)
+    {
+
+        return
     }
 
     @Override
@@ -55,14 +65,16 @@ public class MyCustomAdapter extends BaseAdapter implements ListAdapter{
         TextView listItemText = (TextView)view.findViewById(R.id.list_item_string);
         listItemText.setText(list.get(position));
 
+
         //Handle buttons and add onClickListeners
-        ImageButton deleteBtn = (ImageButton) view.findViewById(R.id.btn_delete);
-        ImageButton editBtn = (ImageButton) view.findViewById(R.id.btn_edit);
+        ImageView deleteBtn = (ImageView) view.findViewById(R.id.btn_delete);
+        ImageView editBtn = (ImageView) view.findViewById(R.id.btn_edit);
 
         deleteBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                //do something
+                //do somethingdelete from data
+                myDb.deleteFood(position);
                 list.remove(position); //or some other task
                 notifyDataSetChanged();
             }

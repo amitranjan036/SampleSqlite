@@ -2,10 +2,13 @@ package com.greedygame.samplesqlite;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 /**
  * Created by nikhil on 12/4/17.
@@ -42,9 +45,18 @@ public class AddFood extends AppCompatActivity{
                     break;
 
                 case R.id.button1:
+                    if(TextUtils.isEmpty(foodName.getText().toString()))
+                    {
+                        Toast.makeText(getApplicationContext(), "Add food item", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    else
+                {
                     myDb.insertData(foodName.getText().toString());
                     in = new Intent(getApplicationContext(), MainActivity.class);
                     startActivity(in);
+                };
+
                     break;
             }
         }

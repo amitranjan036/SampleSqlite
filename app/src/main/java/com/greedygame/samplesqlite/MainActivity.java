@@ -12,9 +12,10 @@ import android.widget.ListView;
 public class MainActivity extends AppCompatActivity {
     DatabaseHandler myDb;
     ListView list;
-    ArrayAdapter<String> adapter;
+   // ArrayAdapter<String> adapter;
     public FloatingActionButton plus;
    // private Context context;
+    MyCustomAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -26,12 +27,20 @@ public class MainActivity extends AppCompatActivity {
 
         list= (ListView) findViewById(R.id.screenlist);
         plus= (FloatingActionButton) findViewById(R.id.fab);
+
+        adapter = new MyCustomAdapter(this,android.R.layout.simple_list_item_1,);
+        adapter.addItems(myDb.getAllFood());
+        list.setAdapter(adapter);
      //   EditText input = new EditText(context);
 
       //  context = this;
-        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1);
-        adapter.addAll(myDb.getAllFood());
-        list.setAdapter(adapter);
+//        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1);
+//        adapter.addAll(myDb.getAllFood());
+//        list.setAdapter(adapter);
+
+
+
+
 
         plus.setOnClickListener(new View.OnClickListener() {
             @Override

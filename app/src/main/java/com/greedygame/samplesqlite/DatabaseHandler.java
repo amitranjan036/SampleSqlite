@@ -17,8 +17,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public static final int DATABASE_VERSION=1;
     public static final String DATABASE_NAME="FoodManager.db";
     public static final String TABLE_NAME="FoodDetail";
-    public static final String COL_1="id";
+    public static final String COL_1="ID";
     public static final String COL_2="FOOD_NAME";
+
 
     public DatabaseHandler(Context context)
     {
@@ -49,6 +50,19 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             return result != -1;
     }
 
+    public void deleteFood (int pos)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_NAME,COL_1 + "=" + pos, null);
+        db.execSQL("DELETE FROM " + TABLE_NAME + " WHERE " + COL_1 + " = " + pos);
+    }
+
+    /*public void updateFood()
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.update(TABLE_NAME,)
+    }*/
+
     public ArrayList<String> getAllFood() {
         ArrayList<String> foodList = new ArrayList<String>();
 
@@ -57,8 +71,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
 
-        if (cursor.moveToFirst()){
-            do{
+        if (cursor.moveToFirst())
+        {
+            do
+            {
                 //Food food = new Food();
                 //food.setid(Integer.parseInt(cursor.getString(0)));
                 //food.setfoodName(cursor.getString(1));
